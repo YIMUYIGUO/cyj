@@ -1,0 +1,56 @@
+{
+  "name": "穿云箭GH宝塔部署配置",
+  "description": "宝塔面板部署配置文件",
+  "requirements": {
+    "panel": "宝塔面板 7.0+",
+    "os": "CentOS 7+/Ubuntu 18+/Debian 9+",
+    "memory": "1GB+",
+    "disk": "10GB+",
+    "software": {
+      "nginx": "1.20+",
+      "nodejs": "18.x",
+      "pm2": "4.0+",
+      "mysql": "8.0+ (远程)"
+    }
+  },
+  "ports": {
+    "required": [80, 443, 8888],
+    "application": 3000,
+    "database": 3306
+  },
+  "directories": {
+    "project": "/www/wwwroot/chuanyunjian-gh",
+    "logs": "/www/wwwlogs",
+    "backup": "/www/backup",
+    "nginx_config": "/www/server/panel/vhost/nginx"
+  },
+  "environment_variables": {
+    "JWT_SECRET": "必须设置，至少32位随机字符串",
+    "NEXT_PUBLIC_APP_URL": "您的域名地址",
+    "NODE_ENV": "production",
+    "PORT": "3000"
+  },
+  "database": {
+    "host": "api.archxy.com",
+    "database": "api_chuanyunjian",
+    "username": "api_chuanyunjian",
+    "password": "mKksdketErLf8njF",
+    "ssl": true
+  },
+  "ssl": {
+    "type": "Let's Encrypt",
+    "auto_renew": true,
+    "force_https": true
+  },
+  "security": {
+    "firewall": "enabled",
+    "rate_limiting": "enabled",
+    "security_headers": "enabled"
+  },
+  "monitoring": {
+    "pm2": "enabled",
+    "logs": "enabled",
+    "health_check": "enabled",
+    "backup": "daily"
+  }
+}
